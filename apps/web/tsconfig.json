@@ -9,5 +9,10 @@
     {
       "path": "./tsconfig.spec.json"
     }
-  ]
+  ],
+  "compilerOptions": {
+      "paths": {
+        "@champions-league-fixture-web/*": ["./src/*"]
+    }
+  }
 }

@@ -1,6 +1,8 @@
 /// <reference types='vitest' />
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import tailwindcss from '@tailwindcss/vite';
+import { resolve } from 'path';
 
 export default defineConfig(() => ({
   root: import.meta.dirname,
@@ -13,11 +15,12 @@ export default defineConfig(() => ({
     port: 4300,
     host: 'localhost',
   },
-  plugins: [vue()],
-  // Uncomment this if you are using workers.
-  // worker: {
-  //  plugins: [],
-  // },
+  plugins: [vue(), tailwindcss()],
+  resolve: {
+    alias: {
+      '@champions-league-fixture-web': resolve(import.meta.dirname, './src'),
+    },
+  },
   build: {
     outDir: './dist',
     emptyOutDir: true,

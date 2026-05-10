@@ -6,5 +6,11 @@
     {
       "path": "./apps/web"
     }
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@champions-league-fixture-web/*": ["./src/*"]
+    }
+  },
 }

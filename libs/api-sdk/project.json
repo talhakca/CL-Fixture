@@ -1,0 +1,40 @@
+{
+  "name": "api-sdk",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/api-sdk/src",
+  "targets": {
+    "generate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/api-sdk",
+        "command": "orval --config ./orval.config.ts"
+      },
+      "inputs": [
+        "{workspaceRoot}/apps/api/storage/api-docs/openapi.json",
+        "{projectRoot}/orval.config.ts",
+        "{projectRoot}/src/http.ts"
+      ],
+      "outputs": ["{projectRoot}/src/generated"]
+    },
+    "spec:export": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "apps/api",
+        "command": "php artisan scramble:export"
+      },
+      "outputs": ["{workspaceRoot}/apps/api/storage/api-docs/openapi.json"]
+    },
+    "sync": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "nx run api-sdk:spec:export",
+          "nx run api-sdk:generate"
+        ],
+        "parallel": false
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:sdk"]
+}

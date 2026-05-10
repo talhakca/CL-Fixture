@@ -16,6 +16,11 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["@nx/source"]
+    "customConditions": ["@nx/source"],
+    "baseUrl": ".",
+    "paths": {
+      "@champions-league-fixture/api-sdk": ["libs/api-sdk/src/index.ts"],
+      "@champions-league-fixture/api-sdk/*": ["libs/api-sdk/src/*"]
+    }
   }
 }
