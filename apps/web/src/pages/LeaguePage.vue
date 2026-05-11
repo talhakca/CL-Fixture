@@ -21,7 +21,7 @@ import ErrorBanner from '@champions-league-fixture/ui/ErrorBanner.vue';
 import LoadingSpinner from '@champions-league-fixture/ui/LoadingSpinner.vue';
 import PageTitle from '@champions-league-fixture/ui/typography/PageTitle.vue';
 import PageSubtitle from '@champions-league-fixture/ui/typography/PageSubtitle.vue';
-import MicroLabel from '@champions-league-fixture/ui/typography/MicroLabel.vue';
+import SectionHeading from '@champions-league-fixture/ui/typography/SectionHeading.vue';
 
 interface Props {
   tournamentId: number;
@@ -309,7 +309,9 @@ const onBackToLanding = (): void => {
           v-if="playedWeeks.length > 0"
           class="space-y-3"
         >
-          <MicroLabel>Played Matches</MicroLabel>
+          <SectionHeading class="font-normal">
+            Played Matches
+          </SectionHeading>
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <FixtureWeekCard
               v-for="[week, matches] in playedWeeks"
@@ -329,7 +331,9 @@ const onBackToLanding = (): void => {
           v-if="upcomingWeeks.length > 0"
           class="space-y-3"
         >
-          <MicroLabel>Upcoming Weeks</MicroLabel>
+          <SectionHeading class="font-normal">
+            Upcoming Weeks
+          </SectionHeading>
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <FixtureWeekCard
               v-for="[week, matches] in upcomingWeeks"
