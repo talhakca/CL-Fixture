@@ -10,6 +10,7 @@ import {
   TableRow,
 } from './ui/table';
 import TeamBadge from './TeamBadge.vue';
+import MicroLabel from './typography/MicroLabel.vue';
 
 interface Props {
   rows: StandingsRowResource[];
@@ -27,11 +28,8 @@ defineProps<Props>();
 
 <template>
   <div class="rounded-md border">
-    <div
-      v-if="weekLabel"
-      class="border-b px-4 py-2 text-xs uppercase tracking-wide text-muted-foreground"
-    >
-      {{ weekLabel }}
+    <div v-if="weekLabel" class="border-b px-4 py-2">
+      <MicroLabel>{{ weekLabel }}</MicroLabel>
     </div>
     <Table>
       <TableHeader>
