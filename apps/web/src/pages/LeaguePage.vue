@@ -19,6 +19,9 @@ import WeekProgressBar from '@champions-league-fixture/ui/WeekProgressBar.vue';
 import GameActionsBar from '@champions-league-fixture/ui/GameActionsBar.vue';
 import ErrorBanner from '@champions-league-fixture/ui/ErrorBanner.vue';
 import LoadingSpinner from '@champions-league-fixture/ui/LoadingSpinner.vue';
+import PageTitle from '@champions-league-fixture/ui/typography/PageTitle.vue';
+import PageSubtitle from '@champions-league-fixture/ui/typography/PageSubtitle.vue';
+import SectionHeading from '@champions-league-fixture/ui/typography/SectionHeading.vue';
 
 interface Props {
   tournamentId: number;
@@ -228,12 +231,8 @@ const onBackToLanding = (): void => {
   <div class="mx-auto max-w-7xl space-y-6 p-6">
     <header class="flex flex-wrap items-center justify-between gap-4">
       <div>
-        <h1 class="text-2xl font-bold tracking-tight">
-          Champions League Mini Fixture
-        </h1>
-        <p class="text-sm text-muted-foreground">
-          PSG · Bayern · Arsenal · Atletico 
-        </p>
+        <PageTitle>Champions League Mini Fixture</PageTitle>
+        <PageSubtitle>PSG · Bayern · Arsenal · Atletico</PageSubtitle>
       </div>
       <GameActionsBar
         :can-play="canPlay"
@@ -310,9 +309,7 @@ const onBackToLanding = (): void => {
           v-if="playedWeeks.length > 0"
           class="space-y-3"
         >
-          <h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Played Matches
-          </h2>
+          <SectionHeading>Played Matches</SectionHeading>
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <FixtureWeekCard
               v-for="[week, matches] in playedWeeks"
@@ -332,9 +329,7 @@ const onBackToLanding = (): void => {
           v-if="upcomingWeeks.length > 0"
           class="space-y-3"
         >
-          <h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-            Upcoming Weeks
-          </h2>
+          <SectionHeading>Upcoming Weeks</SectionHeading>
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <FixtureWeekCard
               v-for="[week, matches] in upcomingWeeks"
