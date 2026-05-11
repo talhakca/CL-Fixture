@@ -1,6 +1,6 @@
 {
   "buildCommand": "npx nx run web:build",
   "outputDirectory": "apps/web/dist",
-  "installCommand": "npm ci",
+  "installCommand": "npm ci --legacy-peer-deps",
   "framework": "vite"
 }

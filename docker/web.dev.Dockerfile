@@ -18,10 +18,11 @@ COPY apps/api/package.json ./apps/api/
 COPY libs/ui/package.json ./libs/ui/
 COPY libs/api-sdk/package.json ./libs/api-sdk/
 
-# Using `npm install` instead of `npm ci` because the workspace lockfile has
-# drifted from package.json (missing @emnapi/* transitives). Regenerate the
-# lockfile locally and switch back to `npm ci` for stricter builds.
-RUN npm install
+# --legacy-peer-deps because @nx/vue 22.7.1 has unresolved peer-dep
+# constraints with the workspace's Vue 3.5 + Nx 22 stack. Without the flag
+# npm 10+ refuses to resolve. Same flag is mirrored in vercel.json so the
+# Vercel build uses identical resolution.
+RUN npm ci --legacy-peer-deps
 
 EXPOSE 4200
 
