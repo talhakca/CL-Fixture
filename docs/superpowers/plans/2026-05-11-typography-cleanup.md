@@ -549,10 +549,12 @@ import LoadingSpinner from '@champions-league-fixture/ui/LoadingSpinner.vue';
 Append three new imports right after it:
 
 ```ts
-import PageTitle from '@champions-league-fixture/ui/PageTitle.vue';
-import PageSubtitle from '@champions-league-fixture/ui/PageSubtitle.vue';
-import SectionHeading from '@champions-league-fixture/ui/SectionHeading.vue';
+import PageTitle from '@champions-league-fixture/ui/typography/PageTitle.vue';
+import PageSubtitle from '@champions-league-fixture/ui/typography/PageSubtitle.vue';
+import SectionHeading from '@champions-league-fixture/ui/typography/SectionHeading.vue';
 ```
+
+Note: the `typography/` segment is required because `libs/ui/package.json`'s `./*.vue` subpath pattern resolves `*` against `./src/components/*.vue` — and the typography wrappers live in `./src/components/typography/`.
 
 - [ ] **Step 2: Replace the page header markup**
 
@@ -619,10 +621,12 @@ git commit -m "refactor(web): use typography components on LandingPage"
 Edit `apps/web/src/pages/LeaguePage.vue`. After the existing `LoadingSpinner` import line, append:
 
 ```ts
-import PageTitle from '@champions-league-fixture/ui/PageTitle.vue';
-import PageSubtitle from '@champions-league-fixture/ui/PageSubtitle.vue';
-import SectionHeading from '@champions-league-fixture/ui/SectionHeading.vue';
+import PageTitle from '@champions-league-fixture/ui/typography/PageTitle.vue';
+import PageSubtitle from '@champions-league-fixture/ui/typography/PageSubtitle.vue';
+import SectionHeading from '@champions-league-fixture/ui/typography/SectionHeading.vue';
 ```
+
+Note: the `typography/` segment is required because `libs/ui/package.json`'s `./*.vue` subpath pattern resolves `*` against `./src/components/*.vue` — and the typography wrappers live in `./src/components/typography/`.
 
 - [ ] **Step 2: Replace the header title block**
 
