@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
+    "lib": ["ES2022", "DOM"],
     "types": ["vite/client"],
     "rootDir": "src",
     "jsx": "preserve",
@@ -10,7 +11,7 @@
     "tsBuildInfoFile": "dist/tsconfig.app.tsbuildinfo",
     "baseUrl": ".",
     "paths": {
-        "@champions-league-fixture-web/*": ["./src/*"]
+      "@champions-league-fixture-web/*": ["./src/*"]
     }
   },
   "exclude": [
@@ -34,5 +35,13 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.vue"]
+  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.vue"],
+  "references": [
+    {
+      "path": "../../libs/ui/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/api-sdk/tsconfig.lib.json"
+    }
+  ]
 }

@@ -5,6 +5,8 @@
 
 @import "tw-animate-css";
 
+@source "../../../libs/ui/src/**/*.{vue,ts}";
+
 @custom-variant dark (&:is(.dark *));
 
 html {

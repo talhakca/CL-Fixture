@@ -18,7 +18,10 @@ export default [
       '@nx/enforce-module-boundaries': [
         'error',
         {
-          enforceBuildableLibDependency: true,
+          // Workspace consumes libs from TS source via npm workspaces +
+          // the `@nx/source` export condition (see tsconfig.base.json),
+          // so libraries deliberately don't emit a dist/.
+          enforceBuildableLibDependency: false,
           allow: ['^.*/eslint(\\.base)?\\.config\\.[cm]?[jt]s$'],
           depConstraints: [
             {

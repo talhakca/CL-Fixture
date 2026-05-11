@@ -5,6 +5,12 @@
   "references": [
     {
       "path": "./apps/web"
+    },
+    {
+      "path": "./libs/api-sdk"
+    },
+    {
+      "path": "./libs/ui"
     }
   ],
   "compilerOptions": {
@@ -12,5 +18,5 @@
     "paths": {
       "@champions-league-fixture-web/*": ["./src/*"]
     }
-  },
+  }
 }

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import NxWelcome from './NxWelcome.vue';
+import { RouterView } from 'vue-router';
 </script>
 
 <template>
-  <NxWelcome title="@nx/web" />
+  <RouterView />
 </template>

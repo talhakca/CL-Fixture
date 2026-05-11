@@ -1,0 +1,41 @@
+{
+  "name": "@champions-league-fixture/ui",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "exports": {
+    ".": {
+      "@nx/source": "./src/index.ts",
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./styles": {
+      "@nx/source": "./src/lib/utils.ts",
+      "types": "./src/lib/utils.ts",
+      "default": "./src/lib/utils.ts"
+    },
+    "./*.vue": {
+      "@nx/source": "./src/components/*.vue",
+      "default": "./src/components/*.vue"
+    },
+    "./components/ui/*": {
+      "@nx/source": "./src/components/ui/*",
+      "default": "./src/components/ui/*"
+    }
+  },
+  "dependencies": {
+    "@champions-league-fixture/api-sdk": "*",
+    "@tanstack/vue-table": "^8.21.3",
+    "@vueuse/core": "^14.3.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-vue-next": "^1.0.0",
+    "reka-ui": "^2.9.7",
+    "tailwind-merge": "^3.5.0"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  }
+}

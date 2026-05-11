@@ -5,4 +5,32 @@
  * OpenAPI spec version: 0.0.1
  */
 
+export * from './fixtureResource';
+export * from './fixtureResourceAwayGoals';
+export * from './fixtureResourceHomeGoals';
+export * from './fixtureResourceWinnerTeamId';
+export * from './fixturesUpdate200';
 export * from './health200';
+export * from './modelNotFoundExceptionResponse';
+export * from './predictionRowResource';
+export * from './standingsRowResource';
+export * from './teamResource';
+export * from './teamsIndex200';
+export * from './tournamentResource';
+export * from './tournamentResourceSettings';
+export * from './tournamentsFixturesIndex200';
+export * from './tournamentsIndex200';
+export * from './tournamentsPlayAll200';
+export * from './tournamentsPlayAll200Meta';
+export * from './tournamentsPlayWeek200';
+export * from './tournamentsPlayWeek200Meta';
+export * from './tournamentsPredictionsIndex200';
+export * from './tournamentsPredictionsShow200';
+export * from './tournamentsResetScores200';
+export * from './tournamentsShow200';
+export * from './tournamentsStandingsIndex200';
+export * from './tournamentsStandingsShow200';
+export * from './tournamentsStore200';
+export * from './updateFixtureScoreRequest';
+export * from './validationExceptionResponse';
+export * from './validationExceptionResponseErrors';

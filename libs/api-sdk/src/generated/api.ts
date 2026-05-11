@@ -4,11 +4,88 @@
  * Laravel
  * OpenAPI spec version: 0.0.1
  */
-import type { Health200 } from './schemas';
+import type {
+  FixturesUpdate200,
+  Health200,
+  TeamsIndex200,
+  TournamentsFixturesIndex200,
+  TournamentsIndex200,
+  TournamentsPlayAll200,
+  TournamentsPlayWeek200,
+  TournamentsPredictionsIndex200,
+  TournamentsPredictionsShow200,
+  TournamentsResetScores200,
+  TournamentsShow200,
+  TournamentsStandingsIndex200,
+  TournamentsStandingsShow200,
+  TournamentsStore200,
+  UpdateFixtureScoreRequest,
+} from './schemas';
 
 import { customInstance } from '../http';
 
 type SecondParameter<T extends (...args: never) => unknown> = Parameters<T>[1];
+
+export const tournamentsFixturesIndex = (
+  tournament: number,
+  options?: SecondParameter<typeof customInstance<TournamentsFixturesIndex200>>,
+) => {
+  return customInstance<TournamentsFixturesIndex200>(
+    { url: `/tournaments/${tournament}/fixtures`, method: 'GET' },
+    options,
+  );
+};
+
+/**
+ * @summary Manual score override on an existing fixture. Returns the full
+sibling fixture set for that fixture's tournament so the page
+doesn't need a follow-up GET
+ */
+export const fixturesUpdate = (
+  fixtureId: number,
+  updateFixtureScoreRequest: UpdateFixtureScoreRequest,
+  options?: SecondParameter<typeof customInstance<FixturesUpdate200>>,
+) => {
+  return customInstance<FixturesUpdate200>(
+    {
+      url: `/fixtures/${fixtureId}`,
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      data: updateFixtureScoreRequest,
+    },
+    options,
+  );
+};
+
+export const tournamentsPlayWeek = (
+  tournament: number,
+  options?: SecondParameter<typeof customInstance<TournamentsPlayWeek200>>,
+) => {
+  return customInstance<TournamentsPlayWeek200>(
+    { url: `/tournaments/${tournament}/play-week`, method: 'POST' },
+    options,
+  );
+};
+
+export const tournamentsPlayAll = (
+  tournament: number,
+  options?: SecondParameter<typeof customInstance<TournamentsPlayAll200>>,
+) => {
+  return customInstance<TournamentsPlayAll200>(
+    { url: `/tournaments/${tournament}/play-all`, method: 'POST' },
+    options,
+  );
+};
+
+export const tournamentsResetScores = (
+  tournament: number,
+  options?: SecondParameter<typeof customInstance<TournamentsResetScores200>>,
+) => {
+  return customInstance<TournamentsResetScores200>(
+    { url: `/tournaments/${tournament}/reset-scores`, method: 'POST' },
+    options,
+  );
+};
 
 /**
  * @summary Liveness probe
@@ -19,8 +96,158 @@ export const health = (
   return customInstance<Health200>({ url: `/health`, method: 'GET' }, options);
 };
 
+/**
+ * @summary Latest snapshot. Empty array when nothing has been computed yet
+ */
+export const tournamentsPredictionsIndex = (
+  tournament: number,
+  options?: SecondParameter<
+    typeof customInstance<TournamentsPredictionsIndex200>
+  >,
+) => {
+  return customInstance<TournamentsPredictionsIndex200>(
+    { url: `/tournaments/${tournament}/predictions`, method: 'GET' },
+    options,
+  );
+};
+
+/**
+ * @summary Specific week snapshot
+ */
+export const tournamentsPredictionsShow = (
+  tournament: number,
+  week: number,
+  options?: SecondParameter<
+    typeof customInstance<TournamentsPredictionsShow200>
+  >,
+) => {
+  return customInstance<TournamentsPredictionsShow200>(
+    { url: `/tournaments/${tournament}/predictions/${week}`, method: 'GET' },
+    options,
+  );
+};
+
+export const tournamentsStandingsIndex = (
+  tournament: number,
+  options?: SecondParameter<
+    typeof customInstance<TournamentsStandingsIndex200>
+  >,
+) => {
+  return customInstance<TournamentsStandingsIndex200>(
+    { url: `/tournaments/${tournament}/standings`, method: 'GET' },
+    options,
+  );
+};
+
+/**
+ * @summary Standings AS OF the end of the given week — used by the frontend's
+WeekProgressBar to replay season state
+ */
+export const tournamentsStandingsShow = (
+  tournament: number,
+  week: number,
+  options?: SecondParameter<typeof customInstance<TournamentsStandingsShow200>>,
+) => {
+  return customInstance<TournamentsStandingsShow200>(
+    { url: `/tournaments/${tournament}/standings/${week}`, method: 'GET' },
+    options,
+  );
+};
+
+/**
+ * @summary List every team in the league
+ */
+export const teamsIndex = (
+  options?: SecondParameter<typeof customInstance<TeamsIndex200>>,
+) => {
+  return customInstance<TeamsIndex200>(
+    { url: `/teams`, method: 'GET' },
+    options,
+  );
+};
+
+export const tournamentsIndex = (
+  options?: SecondParameter<typeof customInstance<TournamentsIndex200>>,
+) => {
+  return customInstance<TournamentsIndex200>(
+    { url: `/tournaments`, method: 'GET' },
+    options,
+  );
+};
+
+export const tournamentsStore = (
+  options?: SecondParameter<typeof customInstance<TournamentsStore200>>,
+) => {
+  return customInstance<TournamentsStore200>(
+    { url: `/tournaments`, method: 'POST' },
+    options,
+  );
+};
+
+export const tournamentsShow = (
+  tournament: number,
+  options?: SecondParameter<typeof customInstance<TournamentsShow200>>,
+) => {
+  return customInstance<TournamentsShow200>(
+    { url: `/tournaments/${tournament}`, method: 'GET' },
+    options,
+  );
+};
+
+export const tournamentsDestroy = (
+  tournament: number,
+  options?: SecondParameter<typeof customInstance<void>>,
+) => {
+  return customInstance<void>(
+    { url: `/tournaments/${tournament}`, method: 'DELETE' },
+    options,
+  );
+};
+
 type AwaitedInput<T> = PromiseLike<T> | T;
 
 type Awaited<O> = O extends AwaitedInput<infer T> ? T : never;
 
+export type TournamentsFixturesIndexResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsFixturesIndex>>
+>;
+export type FixturesUpdateResult = NonNullable<
+  Awaited<ReturnType<typeof fixturesUpdate>>
+>;
+export type TournamentsPlayWeekResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsPlayWeek>>
+>;
+export type TournamentsPlayAllResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsPlayAll>>
+>;
+export type TournamentsResetScoresResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsResetScores>>
+>;
 export type HealthResult = NonNullable<Awaited<ReturnType<typeof health>>>;
+export type TournamentsPredictionsIndexResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsPredictionsIndex>>
+>;
+export type TournamentsPredictionsShowResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsPredictionsShow>>
+>;
+export type TournamentsStandingsIndexResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsStandingsIndex>>
+>;
+export type TournamentsStandingsShowResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsStandingsShow>>
+>;
+export type TeamsIndexResult = NonNullable<
+  Awaited<ReturnType<typeof teamsIndex>>
+>;
+export type TournamentsIndexResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsIndex>>
+>;
+export type TournamentsStoreResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsStore>>
+>;
+export type TournamentsShowResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsShow>>
+>;
+export type TournamentsDestroyResult = NonNullable<
+  Awaited<ReturnType<typeof tournamentsDestroy>>
+>;

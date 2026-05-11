@@ -10,6 +10,278 @@
         }
     ],
     "paths": {
+        "/tournaments/{tournament}/fixtures": {
+            "get": {
+                "operationId": "tournaments.fixtures.index",
+                "tags": [
+                    "Fixture"
+                ],
+                "parameters": [
+                    {
+                        "name": "tournament",
+                        "in": "path",
+                        "required": true,
+                        "description": "The tournament ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `FixtureResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/FixtureResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/fixtures/{fixtureId}": {
+            "put": {
+                "operationId": "fixtures.update",
+                "summary": "Manual score override on an existing fixture. Returns the full\nsibling fixture set for that fixture's tournament so the page\ndoesn't need a follow-up GET",
+                "tags": [
+                    "Fixture"
+                ],
+                "parameters": [
+                    {
+                        "name": "fixtureId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateFixtureScoreRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Array of `FixtureResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/FixtureResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/tournaments/{tournament}/play-week": {
+            "post": {
+                "operationId": "tournaments.play-week",
+                "tags": [
+                    "Game"
+                ],
+                "parameters": [
+                    {
+                        "name": "tournament",
+                        "in": "path",
+                        "required": true,
+                        "description": "The tournament ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `FixtureResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/FixtureResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "week": {
+                                                    "type": "integer"
+                                                },
+                                                "previous_standings": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "previous_predictions": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                }
+                                            },
+                                            "required": [
+                                                "week",
+                                                "previous_standings",
+                                                "previous_predictions"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "data",
+                                        "meta"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/tournaments/{tournament}/play-all": {
+            "post": {
+                "operationId": "tournaments.play-all",
+                "tags": [
+                    "Game"
+                ],
+                "parameters": [
+                    {
+                        "name": "tournament",
+                        "in": "path",
+                        "required": true,
+                        "description": "The tournament ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `FixtureResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/FixtureResource"
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "weeks": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "integer"
+                                                    }
+                                                }
+                                            },
+                                            "required": [
+                                                "weeks"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "data",
+                                        "meta"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/tournaments/{tournament}/reset-scores": {
+            "post": {
+                "operationId": "tournaments.reset-scores",
+                "tags": [
+                    "Game"
+                ],
+                "parameters": [
+                    {
+                        "name": "tournament",
+                        "in": "path",
+                        "required": true,
+                        "description": "The tournament ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `FixtureResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/FixtureResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
         "/health": {
             "get": {
                 "operationId": "health",
@@ -35,6 +307,624 @@
                                     ]
                                 }
                             }
+                        }
+                    }
+                }
+            }
+        },
+        "/tournaments/{tournament}/predictions": {
+            "get": {
+                "operationId": "tournaments.predictions.index",
+                "summary": "Latest snapshot. Empty array when nothing has been computed yet",
+                "tags": [
+                    "Prediction"
+                ],
+                "parameters": [
+                    {
+                        "name": "tournament",
+                        "in": "path",
+                        "required": true,
+                        "description": "The tournament ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `PredictionRowResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/PredictionRowResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/tournaments/{tournament}/predictions/{week}": {
+            "get": {
+                "operationId": "tournaments.predictions.show",
+                "summary": "Specific week snapshot",
+                "tags": [
+                    "Prediction"
+                ],
+                "parameters": [
+                    {
+                        "name": "tournament",
+                        "in": "path",
+                        "required": true,
+                        "description": "The tournament ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "week",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `PredictionRowResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/PredictionRowResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/tournaments/{tournament}/standings": {
+            "get": {
+                "operationId": "tournaments.standings.index",
+                "tags": [
+                    "Standings"
+                ],
+                "parameters": [
+                    {
+                        "name": "tournament",
+                        "in": "path",
+                        "required": true,
+                        "description": "The tournament ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `StandingsRowResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/StandingsRowResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/tournaments/{tournament}/standings/{week}": {
+            "get": {
+                "operationId": "tournaments.standings.show",
+                "summary": "Standings AS OF the end of the given week \u2014 used by the frontend's\nWeekProgressBar to replay season state",
+                "tags": [
+                    "Standings"
+                ],
+                "parameters": [
+                    {
+                        "name": "tournament",
+                        "in": "path",
+                        "required": true,
+                        "description": "The tournament ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "week",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `StandingsRowResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/StandingsRowResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/teams": {
+            "get": {
+                "operationId": "teams.index",
+                "summary": "List every team in the league",
+                "tags": [
+                    "Team"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `TeamResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TeamResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tournaments": {
+            "get": {
+                "operationId": "tournaments.index",
+                "tags": [
+                    "Tournament"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `TournamentResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/TournamentResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "operationId": "tournaments.store",
+                "tags": [
+                    "Tournament"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`TournamentResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TournamentResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/tournaments/{tournament}": {
+            "get": {
+                "operationId": "tournaments.show",
+                "tags": [
+                    "Tournament"
+                ],
+                "parameters": [
+                    {
+                        "name": "tournament",
+                        "in": "path",
+                        "required": true,
+                        "description": "The tournament ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`TournamentResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TournamentResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            },
+            "delete": {
+                "operationId": "tournaments.destroy",
+                "tags": [
+                    "Tournament"
+                ],
+                "parameters": [
+                    {
+                        "name": "tournament",
+                        "in": "path",
+                        "required": true,
+                        "description": "The tournament ID",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "FixtureResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "week": {
+                        "type": "integer"
+                    },
+                    "home_team": {
+                        "$ref": "#/components/schemas/TeamResource"
+                    },
+                    "away_team": {
+                        "$ref": "#/components/schemas/TeamResource"
+                    },
+                    "home_team_id": {
+                        "type": "integer"
+                    },
+                    "away_team_id": {
+                        "type": "integer"
+                    },
+                    "home_goals": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "away_goals": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "is_played": {
+                        "type": "boolean"
+                    },
+                    "played_at": {
+                        "type": "string"
+                    },
+                    "winner_team_id": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    }
+                },
+                "required": [
+                    "id",
+                    "week",
+                    "home_team_id",
+                    "away_team_id",
+                    "home_goals",
+                    "away_goals",
+                    "is_played",
+                    "played_at",
+                    "winner_team_id"
+                ],
+                "title": "FixtureResource"
+            },
+            "PredictionRowResource": {
+                "type": "object",
+                "properties": {
+                    "team_id": {
+                        "type": "integer"
+                    },
+                    "team_name": {
+                        "type": "string"
+                    },
+                    "championship_probability": {
+                        "type": "number"
+                    }
+                },
+                "required": [
+                    "team_id",
+                    "team_name",
+                    "championship_probability"
+                ],
+                "title": "PredictionRowResource"
+            },
+            "StandingsRowResource": {
+                "type": "object",
+                "properties": {
+                    "team_id": {
+                        "type": "integer"
+                    },
+                    "team_name": {
+                        "type": "string"
+                    },
+                    "played": {
+                        "type": "integer"
+                    },
+                    "won": {
+                        "type": "integer"
+                    },
+                    "drawn": {
+                        "type": "integer"
+                    },
+                    "lost": {
+                        "type": "integer"
+                    },
+                    "goals_for": {
+                        "type": "integer"
+                    },
+                    "goals_against": {
+                        "type": "integer"
+                    },
+                    "goal_difference": {
+                        "type": "integer"
+                    },
+                    "points": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "team_id",
+                    "team_name",
+                    "played",
+                    "won",
+                    "drawn",
+                    "lost",
+                    "goals_for",
+                    "goals_against",
+                    "goal_difference",
+                    "points"
+                ],
+                "title": "StandingsRowResource"
+            },
+            "TeamResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "attack_strength": {
+                        "type": "integer"
+                    },
+                    "defense_strength": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "attack_strength",
+                    "defense_strength"
+                ],
+                "title": "TeamResource"
+            },
+            "TournamentResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "settings": {
+                        "type": [
+                            "array",
+                            "null"
+                        ],
+                        "items": {}
+                    },
+                    "started_at": {
+                        "type": "string"
+                    },
+                    "total_weeks": {
+                        "type": "string"
+                    },
+                    "last_played_week": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "settings",
+                    "started_at",
+                    "total_weeks",
+                    "last_played_week"
+                ],
+                "title": "TournamentResource"
+            },
+            "UpdateFixtureScoreRequest": {
+                "type": "object",
+                "description": "Validates the manual-score-edit endpoint.\n\nGoals are bounded at 20 \u2014 a generous ceiling that filters out absurd\ninput but doesn't pretend to legislate football reality. (The simulator\nitself will essentially never produce > 7 from \u03bb \u2264 3.)",
+                "properties": {
+                    "home_goals": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 20
+                    },
+                    "away_goals": {
+                        "type": "integer",
+                        "minimum": 0,
+                        "maximum": 20
+                    }
+                },
+                "required": [
+                    "home_goals",
+                    "away_goals"
+                ],
+                "title": "UpdateFixtureScoreRequest"
+            }
+        },
+        "responses": {
+            "ModelNotFoundException": {
+                "description": "Not found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Error overview."
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    }
+                }
+            },
+            "ValidationException": {
+                "description": "Validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Errors overview."
+                                },
+                                "errors": {
+                                    "type": "object",
+                                    "description": "A detailed description of each field that failed validation.",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message",
+                                "errors"
+                            ]
                         }
                     }
                 }

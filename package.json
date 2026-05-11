@@ -3,7 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "sdk:gen": "nx run api-sdk:generate"
+    "dev": "concurrently -n api,web -c cyan,magenta --kill-others-on-fail \"npm run dev:api\" \"npm run dev:web\"",
+    "dev:api": "cd apps/api && php artisan serve --port=8000",
+    "dev:web": "nx run web:dev",
+    "setup": "npm install && cd apps/api && composer install && php artisan migrate:fresh --seed && php artisan scramble:export && cd ../.. && nx run api-sdk:generate",
+    "sdk:gen": "nx run api-sdk:generate",
+    "sdk:sync": "nx run api-sdk:sync"
   },
   "private": true,
   "dependencies": {
@@ -30,6 +35,7 @@
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.6.0",
     "@vue/test-utils": "^2.4.6",
+    "concurrently": "^9.2.1",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "eslint-plugin-vue": "^9.16.1",
