@@ -16,7 +16,7 @@ describe('SectionHeading', () => {
     });
     const el = container.querySelector('h2')!;
     for (const c of [
-      'text-sm',
+      'text-xs',
       'font-semibold',
       'uppercase',
       'tracking-wide',

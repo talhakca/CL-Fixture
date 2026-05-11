@@ -12,7 +12,7 @@ const props = defineProps<{
     data-slot="section-heading"
     :class="
       cn(
-        'text-sm font-semibold uppercase tracking-wide text-muted-foreground',
+        'text-xs font-semibold uppercase tracking-wide text-muted-foreground',
         props.class,
       )
     "
