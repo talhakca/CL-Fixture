@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npx nx run web:build",
+  "outputDirectory": "apps/web/dist",
+  "installCommand": "npm ci",
+  "framework": "vite"
+}
