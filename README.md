@@ -99,3 +99,51 @@ And join the Nx community:
 - [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
 - [Our Youtube channel](https://www.youtube.com/@nxdevtools)
 - [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Local development (Podman)
+
+### Prerequisites
+- Podman 4.7+ (`brew install podman` on macOS)
+- `podman machine init && podman machine start` (macOS first-time)
+
+### One-command setup
+
+```sh
+npm run compose:setup
+```
+
+After ~60–120s:
+- API at http://localhost:8000
+- Web at http://localhost:4200
+- Postgres at localhost:5432 (`psql -h localhost -U app champions_league`, password `secret`)
+
+### Daily flow
+
+```sh
+npm run compose:up      # start
+npm run compose:logs    # tail logs
+npm run compose:down    # stop (data persists)
+```
+
+### Common tasks
+
+```sh
+npm run compose:migrate          # apply new migrations
+npm run compose:seed             # re-seed teams (idempotent)
+npm run compose:test:api         # run Pest
+npm run compose:sdk              # regen OpenAPI + frontend SDK
+npm run compose:migrate-fresh    # destructive reset + reseed
+```
+
+### How the dev stack stays out of your way
+
+- `apps/api/` is bind-mounted into the API container so artisan picks up source changes on the next request.
+- The whole workspace is bind-mounted into the web container so Vite HMR works against your editor's saves.
+- `vendor/` (composer) and `node_modules/` (npm) ride on named volumes so the host's macOS bind-mount perf isn't a factor.
+- `apps/api/.env.docker.example` is mounted over `/app/.env` in the container so the dev stack's container-flavored config doesn't fight with the host's `.env` (you can keep using `php artisan serve` on the host with your own `.env` if you ever want to).
+
+## Production deployment
+
+- **Frontend (Vercel):** push to `main`; Vercel auto-builds via `nx run web:build` (see `vercel.json`). Set `VITE_API_URL` to the Railway API URL in Vercel's project env vars.
+- **API + Postgres (Railway):** Railway builds `docker/api.Dockerfile` on push. Add Railway's managed Postgres plugin — `DATABASE_URL` is injected automatically. Set `APP_KEY` (one-time) in Railway's env vars before the first deploy.
+- **SDK:** the frontend SDK in `libs/api-sdk/src/generated/` is committed to git. After API changes, run `npm run compose:sdk` locally and commit the diff before pushing — CI will guard this once the CI/CD spec lands.
