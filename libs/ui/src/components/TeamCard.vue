@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { TeamResource } from '@champions-league-fixture/api-sdk';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import MicroLabel from './typography/MicroLabel.vue';
 
 interface Props {
   team: TeamResource;
@@ -12,18 +13,18 @@ defineProps<Props>();
 <template>
   <Card class="overflow-hidden">
     <CardHeader>
-      <CardTitle class="text-base font-bold">{{ team.name }}</CardTitle>
+      <CardTitle>{{ team.name }}</CardTitle>
     </CardHeader>
     <CardContent class="space-y-2 text-sm">
       <div class="flex items-center gap-2">
-        <span class="w-16 text-xs uppercase tracking-wide text-muted-foreground">Attack</span>
+        <MicroLabel class="w-16">Attack</MicroLabel>
         <div class="relative h-2 flex-1 overflow-hidden rounded-full bg-muted">
           <div class="h-full bg-primary" :style="{ width: `${team.attack_strength}%` }" />
         </div>
         <span class="w-8 text-right tabular-nums">{{ team.attack_strength }}</span>
       </div>
       <div class="flex items-center gap-2">
-        <span class="w-16 text-xs uppercase tracking-wide text-muted-foreground">Defense</span>
+        <MicroLabel class="w-16">Defense</MicroLabel>
         <div class="relative h-2 flex-1 overflow-hidden rounded-full bg-muted">
           <div class="h-full bg-primary" :style="{ width: `${team.defense_strength}%` }" />
         </div>
