@@ -21,7 +21,6 @@ import ErrorBanner from '@champions-league-fixture/ui/ErrorBanner.vue';
 import LoadingSpinner from '@champions-league-fixture/ui/LoadingSpinner.vue';
 import PageTitle from '@champions-league-fixture/ui/typography/PageTitle.vue';
 import PageSubtitle from '@champions-league-fixture/ui/typography/PageSubtitle.vue';
-import SectionHeading from '@champions-league-fixture/ui/typography/SectionHeading.vue';
 import MicroLabel from '@champions-league-fixture/ui/typography/MicroLabel.vue';
 
 interface Props {
