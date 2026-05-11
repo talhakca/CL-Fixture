@@ -2,6 +2,7 @@
 import { computed } from 'vue';
 import { Button } from './ui/button';
 import { cn } from '../lib/utils';
+import MicroLabel from './typography/MicroLabel.vue';
 
 interface Props {
   totalWeeks: number;
@@ -38,6 +39,7 @@ const weekSelected = (week: number): void => {
 
 <template>
   <div class="flex justify-center items-center gap-2">
+    <MicroLabel>Weeks</MicroLabel>
     <button
       v-for="week in weeks"
       :key="week + 1"
