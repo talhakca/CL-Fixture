@@ -8,7 +8,18 @@
     "dev:web": "nx run web:dev",
     "setup": "npm install && cd apps/api && composer install && php artisan migrate:fresh --seed && php artisan scramble:export && cd ../.. && nx run api-sdk:generate",
     "sdk:gen": "nx run api-sdk:generate",
-    "sdk:sync": "nx run api-sdk:sync"
+    "sdk:sync": "nx run api-sdk:sync",
+    "compose:up": "podman compose -f docker/compose.yml up -d",
+    "compose:down": "podman compose -f docker/compose.yml down",
+    "compose:logs": "podman compose -f docker/compose.yml logs -f",
+    "compose:install": "podman exec cl-api composer install && podman exec cl-web npm install",
+    "compose:env-init": "podman exec cl-api sh -c 'if [ ! -f .env ]; then cp .env.docker.example .env && php artisan key:generate; fi'",
+    "compose:migrate": "podman exec cl-api php artisan migrate --force",
+    "compose:migrate-fresh": "podman exec cl-api php artisan migrate:fresh --seed --force",
+    "compose:seed": "podman exec cl-api php artisan db:seed --force",
+    "compose:test:api": "podman exec cl-api php artisan test",
+    "compose:sdk": "podman exec cl-api php artisan scramble:export && podman exec cl-web npx nx run api-sdk:generate",
+    "compose:setup": "npm run compose:up && sleep 15 && npm run compose:install && npm run compose:env-init && npm run compose:migrate-fresh"
   },
   "private": true,
   "dependencies": {
