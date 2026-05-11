@@ -65,7 +65,7 @@ const emit = defineEmits<{
     <div class="ml-auto flex gap-2">
       <Button
         v-if="canReset"
-        variant="outline"
+        variant="destructive"
         :disabled="isBusy || isHistorical"
         @click="emit('reset-scores')"
       >
@@ -81,7 +81,7 @@ const emit = defineEmits<{
       </Button>
 
       <Button
-        variant="secondary"
+        variant="outline"
         @click="emit('reset-tournament')"
       >
         <FilePlus class="size-4" />
