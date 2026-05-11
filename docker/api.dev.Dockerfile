@@ -2,7 +2,7 @@
 # Source is bind-mounted at runtime; composer deps live in a named volume.
 # Used only by docker/compose.yml — production uses docker/api.Dockerfile.
 
-FROM php:8.3-cli-alpine
+FROM php:8.4-cli-alpine
 
 # System deps for PHP extensions we need.
 RUN apk add --no-cache \

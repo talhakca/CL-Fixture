@@ -14,6 +14,7 @@ RUN apk add --no-cache git python3 make g++
 COPY package.json package-lock.json ./
 COPY nx.json tsconfig.base.json tsconfig.json ./
 COPY apps/web/package.json ./apps/web/
+COPY apps/api/package.json ./apps/api/
 COPY libs/ui/package.json ./libs/ui/
 COPY libs/api-sdk/package.json ./libs/api-sdk/
 
