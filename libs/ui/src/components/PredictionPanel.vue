@@ -4,6 +4,7 @@ import { ArrowUp, ArrowDown } from 'lucide-vue-next';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import LoadingSpinner from './LoadingSpinner.vue';
 import TeamBadge from './TeamBadge.vue';
+import MicroLabel from './typography/MicroLabel.vue';
 
 interface Props {
   rows: PredictionRowResource[];
@@ -20,12 +21,10 @@ const formatPercent = (value: number): string => `${(value * 100).toFixed(1)}%`;
 <template>
   <Card>
     <CardHeader class="space-y-1">
-      <CardTitle class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-        Championship Odds
-      </CardTitle>
-      <p class="text-xs text-muted-foreground">
+      <CardTitle>Championship Odds</CardTitle>
+      <MicroLabel class="block">
         {{ week === null ? 'No data yet' : `After Week ${week}` }}
-      </p>
+      </MicroLabel>
     </CardHeader>
     <CardContent class="space-y-3">
       <LoadingSpinner
