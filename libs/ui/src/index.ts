@@ -14,3 +14,7 @@ export { default as WeekProgressBar } from './components/WeekProgressBar.vue';
 export { default as GameActionsBar } from './components/GameActionsBar.vue';
 export { default as ErrorBanner } from './components/ErrorBanner.vue';
 export { default as LoadingSpinner } from './components/LoadingSpinner.vue';
+export { default as PageTitle } from './components/typography/PageTitle.vue';
+export { default as PageSubtitle } from './components/typography/PageSubtitle.vue';
+export { default as SectionHeading } from './components/typography/SectionHeading.vue';
+export { default as MicroLabel } from './components/typography/MicroLabel.vue';
