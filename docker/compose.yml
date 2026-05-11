@@ -1,0 +1,66 @@
+# Local development orchestration for the Champions League Mini Fixture.
+# Run via the package.json scripts (npm run compose:up etc.), not directly.
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: champions_league
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d champions_league"]
+      interval: 5s
+      retries: 10
+      start_period: 10s
+    ports:
+      - "5432:5432"
+
+  api:
+    build:
+      context: ..
+      dockerfile: docker/api.dev.Dockerfile
+    container_name: cl-api
+    volumes:
+      - ../apps/api:/app
+      - api-vendor:/app/vendor
+    environment:
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: champions_league
+      DB_USERNAME: app
+      DB_PASSWORD: secret
+      LOG_CHANNEL: stack
+      LOG_LEVEL: debug
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ..
+      dockerfile: docker/web.dev.Dockerfile
+    container_name: cl-web
+    volumes:
+      - ..:/workspace
+      - web-node-modules:/workspace/node_modules
+    environment:
+      VITE_API_URL: http://localhost:8000
+    ports:
+      - "4200:4200"
+    depends_on:
+      - api
+
+volumes:
+  postgres-data:
+  api-vendor:
+  web-node-modules:
