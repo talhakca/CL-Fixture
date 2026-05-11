@@ -23,9 +23,7 @@ const emit = defineEmits<{
 <template>
   <Card>
     <CardHeader>
-      <CardTitle class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-        Week {{ week }}
-      </CardTitle>
+      <CardTitle>Week {{ week }}</CardTitle>
     </CardHeader>
     <CardContent class="divide-y p-0">
       <FixtureRow
