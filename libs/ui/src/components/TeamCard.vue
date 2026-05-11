@@ -2,6 +2,7 @@
 import type { TeamResource } from '@champions-league-fixture/api-sdk';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import MicroLabel from './typography/MicroLabel.vue';
+import TeamBadge from './TeamBadge.vue';
 
 interface Props {
   team: TeamResource;
@@ -13,7 +14,9 @@ defineProps<Props>();
 <template>
   <Card class="overflow-hidden">
     <CardHeader>
-      <CardTitle>{{ team.name }}</CardTitle>
+      <CardTitle>
+        <TeamBadge :name="team.name" />
+      </CardTitle>
     </CardHeader>
     <CardContent class="space-y-2 text-sm">
       <div class="flex items-center gap-2">

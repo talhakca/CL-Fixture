@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Play, FastForward, RotateCcw, Trash2, Loader2, FilePlus } from 'lucide-vue-next';
+import { Play, FastForward, RotateCcw, Loader2, FilePlus } from 'lucide-vue-next';
 import { Button } from './ui/button';
 
 export type PendingAction = 'play-week' | 'play-all' | 'reset-scores' | null;

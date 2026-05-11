@@ -72,7 +72,7 @@ const onRetryTeams = (): void => {
 
     <section v-else-if="teams.length > 0" class="space-y-4">
       <SectionHeading>Teams in this league</SectionHeading>
-      <div class="grid gap-4 sm:grid-cols-2">
+      <div class="mt-4 grid gap-4 sm:grid-cols-2">
         <TeamCard v-for="t in teams" :key="t.id" :team="t" />
       </div>
     </section>
