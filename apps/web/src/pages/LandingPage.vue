@@ -10,6 +10,9 @@ import { tournamentService } from '../services/tournamentService';
 import TeamCard from '@champions-league-fixture/ui/TeamCard.vue';
 import ErrorBanner from '@champions-league-fixture/ui/ErrorBanner.vue';
 import LoadingSpinner from '@champions-league-fixture/ui/LoadingSpinner.vue';
+import PageTitle from '@champions-league-fixture/ui/typography/PageTitle.vue';
+import PageSubtitle from '@champions-league-fixture/ui/typography/PageSubtitle.vue';
+import SectionHeading from '@champions-league-fixture/ui/typography/SectionHeading.vue';
 
 const router = useRouter();
 const team = useMachine(teamMachine);
@@ -47,10 +50,8 @@ const onRetryTeams = (): void => {
 <template>
   <div class="mx-auto max-w-5xl space-y-8 p-6">
     <header class="space-y-2 text-center">
-      <h1 class="text-3xl font-bold tracking-tight">Champions League Mini Fixture</h1>
-      <p class="text-sm text-muted-foreground">
-        Four teams. Six weeks. Pick a season to start.
-      </p>
+      <PageTitle>Champions League Mini Fixture</PageTitle>
+      <PageSubtitle>Four teams. Six weeks. Pick a season to start.</PageSubtitle>
     </header>
 
     <ErrorBanner
@@ -70,9 +71,7 @@ const onRetryTeams = (): void => {
     <LoadingSpinner v-if="isLoadingTeams" label="Loading teams…" />
 
     <section v-else-if="teams.length > 0" class="space-y-4">
-      <h2 class="text-sm font-semibold uppercase tracking-wide text-muted-foreground">
-        Teams in this league
-      </h2>
+      <SectionHeading>Teams in this league</SectionHeading>
       <div class="grid gap-4 sm:grid-cols-2">
         <TeamCard v-for="t in teams" :key="t.id" :team="t" />
       </div>
